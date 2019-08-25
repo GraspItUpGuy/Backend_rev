@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const port = 3000 || process.env.PORT ;
+const port = 3001 || process.env.PORT ;
 
 
 app.get('/',(request ,response)=>{
@@ -27,6 +27,20 @@ app.post('/login',(req,res)=>{
 app.delete('/options',(req,res)=>{
     res.send("delete request on /options processed")
 })
+
+
+app.get("/ab*cd",(req,res)=>{
+    res.send("regex page");
+})
+
+app.get("/user/:id/status/:status_id",(req,res)=>{
+    res.send(req.params);
+})
+
+app.get('/flights/:from-:to',(req,res)=>{
+    res.send(req.params);  // returns JSON
+})
+
 
 app.listen(port,()=>{
     console.log(`Server is running at port : ${port}`);
