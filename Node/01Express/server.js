@@ -20,6 +20,14 @@ app.get('/services',(req,res)=>{
     res.send(' <h1>Services Offered </h1> <br> <ul><li><h2>Sarcasm</h2></li><li><h2>More Sarcasm</h2></li><li><h2> Even more Sarcasm</h2></li></ul>');
 })
 
+app.post('/login',(req,res)=>{
+    res.send("Login succcesful");
+});
+
+app.delete('/options',(req,res)=>{
+    res.send("delete request on /options processed")
+})
+
 app.listen(port,()=>{
     console.log(`Server is running at port : ${port}`);
 })
