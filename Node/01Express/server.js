@@ -9,7 +9,11 @@ app.get('/',(request ,response)=>{
 })
 
 app.get('/about',(request, response)=>{
-    response.send("<h1>I am about Page</h1>")
+    //response.send("<h1>I am about Page</h1>")
+    
+    //response.status(200).json({user : "Shayam", balance : "2000", id : "edb2i7w"});
+    response.status(200).json({error : "something is not right"});
+
 })
 
 app.get('/contact',(req,res)=>{
@@ -40,6 +44,7 @@ app.get("/user/:id/status/:status_id",(req,res)=>{
 app.get('/flights/:from-:to',(req,res)=>{
     res.send(req.params);  // returns JSON
 })
+
 
 
 app.listen(port,()=>{
