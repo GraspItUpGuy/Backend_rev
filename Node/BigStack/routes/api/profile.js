@@ -5,6 +5,11 @@ const profileRouter = express.Router();
 
 // here / is /api/auth coming from index .js
 // if we use /my then url becomes /api/auth/my
+
+// @type    -   GET
+// @route   -   /api/profile
+// @desc    -   testing for route
+// @access  -   PUBLIC
 profileRouter.get('/',(req,res)=>{
     res.json({profile : 'profile is success'});
 })

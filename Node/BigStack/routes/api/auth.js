@@ -5,6 +5,11 @@ const authRouter = express.Router();
 
 // here / is /api/auth coming from index .js
 // if we use /my then url becomes /api/auth/my
+
+// @type    -   GET
+// @route   -   /api/auth
+// @desc    -   testing for route
+// @access  -   PUBLIC
 authRouter.get('/',(req,res)=>{
     res.json({test : 'Auth is success'});
 })
