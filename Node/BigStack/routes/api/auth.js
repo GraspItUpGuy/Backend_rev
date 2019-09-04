@@ -78,4 +78,27 @@ authRouter.post('/register',(req,res)=>{
 });
 
 
+// @type    -   POST
+// @route   -   /api/auth/login
+// @desc    -   route for login of existing users
+// @access  -   PUBLIC
+authRouter.post('/login',(req,res)=>{
+    const email = req.body.email ;
+    const password = req.body.password; // is in cleartext
+    // needed to me converted into hash for comparison using bcrypt
+    Person.findOne({email})
+        .then()
+        .catch(
+            err=>{
+                console.log('cant find user email');
+                console.log('DB error in auth.js');
+                console.log(err);
+
+            }
+        )
+})
+
+
+
+
 module.exports  = authRouter;
