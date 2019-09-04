@@ -1,6 +1,6 @@
 const express = require('express');
 const authRouter = express.Router();
-const brypt = require('bcrypt'); 
+const bcrypt = require('bcrypt'); 
 const jsonWebToken = require('jsonwebtoken');
 const passport  = require('passport');
 
@@ -29,7 +29,7 @@ const Person = require('../../models/Person');
 // @route   -   /api/auth/register
 // @desc    -   route for registration of users
 // @access  -   PUBLIC
-authRouter.get('/register',(req,res)=>{
+authRouter.post('/register',(req,res)=>{
     // should do to prevent re-register
     Person.findOne({email : req.body.email})
           .then(person => {
@@ -46,7 +46,6 @@ authRouter.get('/register',(req,res)=>{
                  // encrypt password using bcrypt 
                  // coming from documentation
                  const saltRounds = 10;
-                 const someOtherPlaintextPassword = 'not_bacon';
                  bcrypt.genSalt(saltRounds, (err, salt)=>{
                  bcrypt.hash(newPerson.password,salt,(err, hash)=>{
                         // Store hash in your password DB.
