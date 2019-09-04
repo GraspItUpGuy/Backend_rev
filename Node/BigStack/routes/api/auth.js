@@ -87,7 +87,26 @@ authRouter.post('/login',(req,res)=>{
     const password = req.body.password; // is in cleartext
     // needed to me converted into hash for comparison using bcrypt
     Person.findOne({email})
-        .then()
+        .then(person => {
+            if(!person){
+                return res.status(404).json({emailerror : 'user not found with this email'})
+            }
+             // match the password
+            bcrypt.compare(password, person.password)
+                  .then(isMatched =>{
+                         if(isMatched){
+                             res.json({success : "User is logged in successfully"});
+                             // STrategy to be done here
+                         }else{
+                             res.status(400).json({passworderror : "password is not correct"})
+                         }
+                  })
+                  .catch( err =>{
+                      console.log("inncorrect password" + "auth.js");
+                      console.log(err)
+                  })
+            
+        })
         .catch(
             err=>{
                 console.log('cant find user email');
