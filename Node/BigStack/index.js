@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+//const passport = require('passport');
 
 
 const app = express();
@@ -25,7 +26,14 @@ const db = require('./setup/myurl').mongoURL ;
 mongoose.connect(db, {useNewUrlParser: true}) 
         .then(()=>{ console.log('MongoDB connected successfully');})
         .catch((err)=>{ console.log('DB not connected' + err);});
-                    
+              
+    
+// passport middleware
+//app.use(passport.initialize());        
+
+// config for JWT strategy
+//require("./Strategies/jsonWTstrategy")(passport);
+
 // test route
 app.get('/',(req,res)=>{
     res.send('Hey there big stack');

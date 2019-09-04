@@ -95,9 +95,27 @@ authRouter.post('/login',(req,res)=>{
             bcrypt.compare(password, person.password)
                   .then(isMatched =>{
                          if(isMatched){
-                             res.json({success : "User is logged in successfully"});
-                             // STrategy to be done here
+                             //res.json({success : "User is logged in successfully"});
+                             // Strategy to be done here
                              // use payload and create token for user
+                             // documentation
+                             const payload = {
+                                 id : person.id,
+                                 name : person.name,
+                                 email: person.email,
+                                 username : person.username,
+                             };
+                             jsonWebToken.sign(
+                                 payload,
+                                 key.secret,
+                                 { expiresIn: 60 *60}, // 1 hour
+                                 (err, token) => {
+                                     res.json({
+                                         success : true,
+                                         token : "Bearer" + " " + token,
+                                     })
+                                 }
+                             )
                          }else{
                              res.status(400).json({passworderror : "password is not correct"})
                          }
@@ -118,6 +136,18 @@ authRouter.post('/login',(req,res)=>{
         )
 })
 
+// @type    -   GET
+// @route   -   /api/auth/profile
+// @desc    -   route for user profile
+// @access  -   PRIVATE
+// private route from passport-jwt strategy
+authRouter.get('/profile',
+passport.authenticate('jwt'),{session : false},
+(req,res)=>{
+    console.log(req);
+
+}
+)
 
 
 
