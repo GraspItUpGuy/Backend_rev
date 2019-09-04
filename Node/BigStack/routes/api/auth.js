@@ -97,6 +97,7 @@ authRouter.post('/login',(req,res)=>{
                          if(isMatched){
                              res.json({success : "User is logged in successfully"});
                              // STrategy to be done here
+                             // use payload and create token for user
                          }else{
                              res.status(400).json({passworderror : "password is not correct"})
                          }
