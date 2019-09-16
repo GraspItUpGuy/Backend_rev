@@ -42,6 +42,7 @@ authRouter.post('/register',(req,res)=>{
                      email : req.body.email,
                      password : req.body.password, // in cleartext => needed to be encrypted
                      username : req.body.username,
+                     gender : req.body.gender,
                  });
                  // encrypt password using bcrypt 
                  // coming from documentation
@@ -104,6 +105,7 @@ authRouter.post('/login',(req,res)=>{
                                  name : person.name,
                                  email: person.email,
                                  username : person.username,
+                                 gender : person.gender,
                              };
                              jsonWebToken.sign(
                                  payload,
@@ -112,7 +114,7 @@ authRouter.post('/login',(req,res)=>{
                                  (err, token) => {
                                      res.json({
                                          success : true,
-                                         token : "Bearer" + " " + token,
+                                         token : "Bearer " + token,
                                      })
                                  }
                              )
@@ -136,15 +138,23 @@ authRouter.post('/login',(req,res)=>{
         )
 })
 
-// @type    -   GET
+// @type    -   POST
 // @route   -   /api/auth/profile
 // @desc    -   route for user profile
 // @access  -   PRIVATE
 // private route from passport-jwt strategy
-authRouter.get('/profile',
-passport.authenticate('jwt'),{session : false},
+authRouter.post('/profile',
+passport.authenticate('jwt',{session : false}),
 (req,res)=>{
-    console.log(req);
+    //console.log(req.user);
+    res.json({
+        id : req.user.id,
+        name: req.user.name,
+        email: req.user.email,
+        username: req.user.username,
+        profilePic : req.user.profilePic,
+        gender : req.user.gender,
+    })
 
 }
 )

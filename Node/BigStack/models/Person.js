@@ -23,6 +23,12 @@ const PersonSchema = new schema({
         type : String,
         default : "../DefaultData/manIcon.png",
     },
+    gender : {
+        type : String,
+        required : true,
+        default : "male" ,
+    }
+    ,
     date : {
         type : Date,
         default : Date.now,
